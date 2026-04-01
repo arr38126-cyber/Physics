@@ -21,51 +21,59 @@
         <div class="absolute -top-32 -left-32 w-80 h-80 bg-[#F57C00]/5 rounded-full filter blur-3xl"></div>
 
         <div class="relative z-10 mb-6">
-            <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 shadow-xl border-2 border-[#F57C00]/40 transform -rotate-2 hover:rotate-0 transition-all duration-500">
+            <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 shadow-xl border-2 border-[#F57C00]/40 transform -rotate-2">
                 <img src="https://i.ibb.co/jkMXWC1v/logo.png" alt="Logo" class="w-full h-full object-contain rounded-lg">
             </div>
-            <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase italic">Dr Fady</h1>
+            <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase">Dr:Fady</h1>
             <div class="h-1 w-12 bg-[#F57C00] mx-auto mt-2 rounded-full"></div>
         </div>
 
         <div id="loginForm" class="relative z-10 space-y-5">
-            <p class="text-[#F57C00] text-sm font-bold italic mb-6">"وَمَن يَهوَب صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
-            
-            <div class="space-y-4 text-right">
-                <input type="tel" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
-                <input type="password" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
-            </div>
-            
-            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl hover:scale-[1.02] active:scale-95 transition-all text-lg uppercase">دخول للمنصة</button>
-            
-            <div class="pt-4 space-y-2">
-                <p class="text-[#F57C00]/60 text-xs cursor-pointer hover:underline">نسيت كلمة السر؟</p>
-                <p class="text-white/40 text-[11px]">ليس لديك حساب؟ <span onclick="toggleForm('registerForm')" class="text-[#F57C00] cursor-pointer underline font-bold">أنشئ حسابك الآن</span></p>
+            <p class="text-[#F57C00] text-sm font-bold italic mb-6">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
+            <input type="tel" id="loginPhone" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none text-center">
+            <input type="password" id="loginPass" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none text-center">
+            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl">دخول</button>
+            <div class="pt-4 text-xs">
+                <p onclick="showForgot()" class="text-[#F57C00]/60 cursor-pointer mb-2">نسيت كلمة السر؟</p>
+                <p class="text-white/40">ليس لديك حساب؟ <span onclick="toggleForm('register')" class="text-[#F57C00] cursor-pointer underline font-bold">سجل الآن</span></p>
             </div>
         </div>
 
-        <div id="registerForm" class="relative z-10 space-y-5 hidden">
-            <h2 class="text-[#F57C00] text-xl font-black mb-2 tracking-tighter">سجل بياناتك يا بطل</h2>
-            
-            <div class="space-y-3">
-                <input type="text" placeholder="الاسم الثلاثي للطالب" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
-                <input type="tel" placeholder="رقم هاتفك (واتساب)" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
-                <input type="tel" placeholder="رقم هاتف ولي الأمر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
-                <input type="password" placeholder="اختر كلمة سر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
-            </div>
-            
-            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-xl shadow-lg hover:scale-[1.02] transition-all uppercase">تأكيد التسجيل</button>
-            
-            <p class="text-white/40 text-xs pt-2">لديك حساب؟ <span onclick="toggleForm('loginForm')" class="text-[#F57C00] cursor-pointer underline font-bold">تسجيل الدخول</span></p>
+        <div id="registerForm" class="relative z-10 space-y-4 hidden">
+            <h2 class="text-[#F57C00] text-xl font-black mb-2">طالب جديد</h2>
+            <input type="text" placeholder="الاسم الثلاثي" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center">
+            <input type="tel" placeholder="رقم هاتفك" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center">
+            <input type="tel" placeholder="رقم ولي الأمر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center">
+            <input type="password" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center">
+            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-xl">تأكيد</button>
+            <p onclick="toggleForm('login')" class="text-white/40 text-xs cursor-pointer">العودة للدخول</p>
         </div>
 
-        <p class="relative z-10 mt-10 text-[9px] text-white/10 tracking-[0.3em] uppercase">© 2026 Physics Gate | Dr Fady</p>
+        <div id="forgotForm" class="relative z-10 space-y-6 hidden">
+            <p class="text-[#FFF8E1]/60 text-xs">اكتب رقم موبايلك وسيتم توجيهك للواتساب</p>
+            <input type="tel" id="forgotPhone" placeholder="رقم موبايلك" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-4 px-4 text-white text-center">
+            <button onclick="sendWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl">طلب كلمة السر</button>
+            <p onclick="toggleForm('login')" class="text-[#F57C00] text-xs cursor-pointer underline">رجوع</p>
+        </div>
+
     </div>
 
     <script>
-        function toggleForm(id) {
-            document.getElementById('loginForm').classList.toggle('hidden', id !== 'loginForm');
-            document.getElementById('registerForm').classList.toggle('hidden', id !== 'registerForm');
+        // تعديل رقم الواتساب هنا (السطر 83)
+        const myWhatsApp = "201000000000"; 
+
+        function toggleForm(type) {
+            document.getElementById('loginForm').classList.toggle('hidden', type === 'register');
+            document.getElementById('registerForm').classList.toggle('hidden', type === 'login');
+            document.getElementById('forgotForm').classList.add('hidden');
+        }
+        function showForgot() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('forgotForm').classList.remove('hidden');
+        }
+        function sendWhatsApp() {
+            const p = document.getElementById('forgotPhone').value;
+            window.open(`https://wa.me/${myWhatsApp}?text=نسيت كلمة سري ورقمي هو ${p}`);
         }
     </script>
 </body>
