@@ -8,78 +8,64 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root { --brand-dark: #1C2331; --brand-orange: #F57C00; --brand-beige: #FFF8E1; }
-        body { background-color: var(--brand-beige); font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--brand-beige); font-family: 'Cairo', sans-serif; overflow-x: hidden; }
         .english-font { font-family: 'Playfair Display', serif; }
         .hidden { display: none; }
-        input::placeholder { color: rgba(255, 248, 225, 0.2); }
+        input::placeholder { color: rgba(255, 255, 255, 0.2); text-align: center; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#fffcf2] to-[#FFF8E1]">
+<body class="min-h-screen flex items-center justify-center p-4 bg-[#FFF8E1]">
 
-    <div class="max-w-md w-full bg-[#1C2331] rounded-[3rem] shadow-[0_40px_100px_rgba(0,0,0,0.7)] border border-[#F57C00]/20 p-10 text-center relative overflow-hidden">
+    <div class="max-w-md w-full bg-[#1C2331] rounded-[3rem] shadow-2xl border border-[#F57C00]/20 p-10 text-center relative overflow-hidden">
         
-        <div class="absolute -top-32 -left-32 w-80 h-80 bg-[#F57C00]/5 rounded-full filter blur-3xl text-right leading-loose"></div>
+        <div class="absolute -top-32 -left-32 w-80 h-80 bg-[#F57C00]/5 rounded-full filter blur-3xl"></div>
 
         <div class="relative z-10 mb-6">
-            <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 shadow-xl border-2 border-[#F57C00]/40 transform -rotate-2">
-                <img src="https://i.ibb.co/jkMXWC1v/logo.png" alt="Dr Fady Logo" class="w-full h-full object-contain">
+            <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 shadow-xl border-2 border-[#F57C00]/40 transform -rotate-2 hover:rotate-0 transition-all duration-500">
+                <img src="https://i.ibb.co/jkMXWC1v/logo.png" alt="Logo" class="w-full h-full object-contain rounded-lg">
             </div>
-            <h1 class="text-white text-3xl font-black mt-4 english-font italic uppercase italic">Dr Fady</h1>
+            <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase italic">Dr Fady</h1>
+            <div class="h-1 w-12 bg-[#F57C00] mx-auto mt-2 rounded-full"></div>
         </div>
 
         <div id="loginForm" class="relative z-10 space-y-5">
-            <h2 class="text-[#F57C00] text-lg font-bold mb-4">تسجيل الدخول للمنصة</h2>
-            <div class="space-y-4">
-                <input type="tel" id="loginPhone" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
-                <input type="password" id="loginPass" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
+            <p class="text-[#F57C00] text-sm font-bold italic mb-6">"وَمَن يَهوَب صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
+            
+            <div class="space-y-4 text-right">
+                <input type="tel" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
+                <input type="password" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center text-lg">
             </div>
-            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl hover:scale-[1.02] transition-all text-lg uppercase">دخول</button>
-            <div class="flex flex-col gap-3 pt-2">
-                <span onclick="showForm('forgotForm')" class="text-[#F57C00]/60 text-xs cursor-pointer hover:text-[#F57C00]">نسيت كلمة السر؟</span>
-                <p class="text-[#FFF8E1]/40 text-xs">ليس لديك حساب؟ <span onclick="showForm('registerForm')" class="text-[#F57C00] cursor-pointer underline font-bold">أنشئ حسابك الآن</span></p>
+            
+            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl hover:scale-[1.02] active:scale-95 transition-all text-lg uppercase">دخول للمنصة</button>
+            
+            <div class="pt-4 space-y-2">
+                <p class="text-[#F57C00]/60 text-xs cursor-pointer hover:underline">نسيت كلمة السر؟</p>
+                <p class="text-white/40 text-[11px]">ليس لديك حساب؟ <span onclick="toggleForm('registerForm')" class="text-[#F57C00] cursor-pointer underline font-bold">أنشئ حسابك الآن</span></p>
             </div>
         </div>
 
         <div id="registerForm" class="relative z-10 space-y-5 hidden">
-            <h2 class="text-[#F57C00] text-xl font-black mb-4 tracking-tighter">انضم لطلابنا الآن</h2>
-            <div class="space-y-4">
-                <input type="text" placeholder="الاسم الثلاثي" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center">
-                <input type="tel" placeholder="رقم الهاتف (واتساب)" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center">
-                <input type="password" placeholder="اختر كلمة سر قوية" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center">
+            <h2 class="text-[#F57C00] text-xl font-black mb-2 tracking-tighter">سجل بياناتك يا بطل</h2>
+            
+            <div class="space-y-3">
+                <input type="text" placeholder="الاسم الثلاثي للطالب" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
+                <input type="tel" placeholder="رقم هاتفك (واتساب)" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
+                <input type="tel" placeholder="رقم هاتف ولي الأمر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
+                <input type="password" placeholder="اختر كلمة سر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-[#F57C00] text-center">
             </div>
-            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl hover:scale-[1.02] transition-all text-lg uppercase">تأكيد التسجيل</button>
-            <p class="text-[#FFF8E1]/40 text-xs pt-4">لديك حساب بالفعل؟ <span onclick="showForm('loginForm')" class="text-[#F57C00] cursor-pointer underline font-bold">تسجيل الدخول</span></p>
+            
+            <button class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-xl shadow-lg hover:scale-[1.02] transition-all uppercase">تأكيد التسجيل</button>
+            
+            <p class="text-white/40 text-xs pt-2">لديك حساب؟ <span onclick="toggleForm('loginForm')" class="text-[#F57C00] cursor-pointer underline font-bold">تسجيل الدخول</span></p>
         </div>
 
-        <div id="forgotForm" class="relative z-10 space-y-6 hidden">
-            <h2 class="text-[#F57C00] text-lg font-bold mb-2">استعادة الحساب</h2>
-            <p class="text-[#FFF8E1]/40 text-xs px-4">أدخل رقم هاتفك المسجل وسيتم توجيهك للدعم الفني لاستلام كلمة السر الجديدة عبر واتساب.</p>
-            <input type="tel" id="forgotPhone" placeholder="رقم هاتفك المسجل" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white focus:outline-none focus:border-[#F57C00] text-center">
-            <button onclick="sendResetWhatsApp()" class="w-full bg-green-600 text-white font-black py-4 rounded-2xl shadow-xl hover:bg-green-700 transition-all flex items-center justify-center gap-2">
-                طلب كلمة السر عبر واتساب
-            </button>
-            <p onclick="showForm('loginForm')" class="text-[#F57C00] text-xs cursor-pointer underline font-bold pt-2">العودة للدخول</p>
-        </div>
-
-        <p class="relative z-10 mt-10 text-[10px] text-[#FFF8E1]/10 tracking-[0.3em] uppercase">© 2026 Physics Gate | Dr Fady</p>
+        <p class="relative z-10 mt-10 text-[9px] text-white/10 tracking-[0.3em] uppercase">© 2026 Physics Gate | Dr Fady</p>
     </div>
 
     <script>
-        function showForm(formId) {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('forgotForm').classList.add('hidden');
-            document.getElementById(formId).classList.remove('hidden');
-        }
-
-        function sendResetWhatsApp() {
-            const phone = document.getElementById('forgotPhone').value;
-            if (!phone) { alert('من فضلك أدخل رقم الهاتف'); return; }
-            
-            // استبدل الرقم أدناه برقم الواتساب الخاص بك (بصيغة دولية بدون +)
-            const myWhatsApp = "201000000000"; 
-            const message = `أهلاً دكتور فادي، لقد نسيت كلمة السر الخاصة بي. رقم هاتفي المسجل هو: ${phone}`;
-            window.open(`https://wa.me/${myWhatsApp}?text=${encodeURIComponent(message)}`, '_blank');
+        function toggleForm(id) {
+            document.getElementById('loginForm').classList.toggle('hidden', id !== 'loginForm');
+            document.getElementById('registerForm').classList.toggle('hidden', id !== 'registerForm');
         }
     </script>
 </body>
