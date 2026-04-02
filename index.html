@@ -5,170 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr: Fady | Physics Platform</title>
     
+    <link rel="icon" href="https://i.postimg.cc/85M6Xm8y/fady-logo.png" type="image/png">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --bg: #f8f9fa;
-            --error: #e74c3c;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
+            background-color: #ffffff;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
         }
 
         .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 420px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
             text-align: center;
-            border-top: 6px solid var(--primary);
+            border: 1px solid #e0e0e0;
         }
 
-        h2 { color: var(--primary); margin-bottom: 10px; font-size: 1.6rem; }
+        h2 { color: #2c3e50; margin-bottom: 8px; }
 
         .slogan {
-            color: var(--accent);
-            font-weight: bold;
+            color: #3498db;
             font-style: italic;
+            font-size: 1rem;
             margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.5;
-            background: #f0f7fd;
-            padding: 10px;
-            border-radius: 10px;
+            font-weight: bold;
         }
 
         input {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #dcdde1;
             border-radius: 8px;
             box-sizing: border-box;
-            font-size: 14px;
-            transition: 0.3s;
+            background-color: #fafafa;
+            text-align: right;
         }
-
-        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 5px rgba(52, 152, 219, 0.2); }
 
         button {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary);
+            background-color: #2c3e50; 
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 17px;
             font-weight: bold;
-            margin-top: 15px;
-            transition: 0.3s;
+            margin-top: 10px;
         }
 
-        button:hover { background-color: var(--accent); transform: translateY(-2px); }
-        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+        button:hover { background-color: #1a252f; }
+        
+        .toggle-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .toggle-link span {
+            color: #3498db;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
         .forgot-link {
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: var(--error);
+            color: #e74c3c;
             text-decoration: none;
-            font-weight: 600;
+            font-size: 12px;
+            display: block;
+            margin-top: 10px;
         }
 
-        .footer-link { margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
-        .footer-link a { color: var(--accent); text-decoration: none; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <h2>منصة د. فادي للفيزياء</h2>
-    
-    <div class="slogan">
-        "وَمَن لا يُحِبّ صُعُودَ الجِبَالِ <br> يَعِش أَبَدَ الدَّهرِ بَينَ الحُفَرِ"
+    <div class="slogan">"وَمَن لا يُحِبّ صُعُودَ الجِبَالِ يَعِش أَبَدَ الدَّهرِ بَينَ الحُفَرِ"</div>
+
+    <div id="loginSection">
+        <input type="tel" id="loginPhone" placeholder="رقم الموبايل">
+        <input type="password" id="loginPass" placeholder="كلمة المرور">
+        <button id="loginBtn">تسجيل الدخول</button>
+        <a href="#" class="forgot-link" id="forgotBtn">نسيت كلمة المرور؟</a>
+        <div class="toggle-link">ليس لديك حساب؟ <span onclick="toggleView('register')">إنشاء حساب جديد</span></div>
     </div>
 
-    <form id="registrationForm">
-        <input type="text" id="regName" placeholder="الاسم الثلاثي للطالب" required>
-        <input type="tel" id="regPhone" placeholder="رقم موبايلك (WhatsApp)" required>
-        <input type="tel" id="regParentPhone" placeholder="رقم موبايل ولي الأمر" required>
-        <input type="password" id="regPassword" placeholder="كلمة المرور الجديدة" required>
-        
-        <button type="submit" id="submitBtn">سجل الآن</button>
-    </form>
-    
-    <a href="#" id="forgotBtn" class="forgot-link">نسيت كلمة المرور؟ تواصل معنا</a>
-
-    <p class="footer-link">لديك حساب بالفعل؟ <a href="#">تسجيل دخول</a></p>
+    <div id="registerSection" class="hidden">
+        <input type="text" id="regName" placeholder="الاسم الثلاثي للطالب">
+        <input type="tel" id="regPhone" placeholder="رقم موبايلك (WhatsApp)">
+        <input type="tel" id="regParent" placeholder="رقم موبايل ولي الأمر">
+        <input type="password" id="regPass" placeholder="كلمة المرور">
+        <button id="registerBtn">إنشاء الحساب</button>
+        <div class="toggle-link">لديك حساب بالفعل؟ <span onclick="toggleView('login')">تسجيل الدخول</span></div>
+    </div>
 </div>
 
 <script>
-    // --- إعدادات الربط النهائية لمشروعك ---
     const SB_URL = 'https://atjzfdlayhfbrdfplkaz.supabase.co';
     const SB_KEY = 'sb_publishable_qgPInys2_HADODQ8rRwORg_lYp6Baf8';
-
     const _supabase = supabase.createClient(SB_URL, SB_KEY);
 
-    const regForm = document.getElementById('registrationForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const forgotBtn = document.getElementById('forgotBtn');
+    // تبديل الواجهات
+    function toggleView(view) {
+        document.getElementById('loginSection').classList.toggle('hidden', view === 'register');
+        document.getElementById('registerSection').classList.toggle('hidden', view === 'login');
+    }
 
-    // 1. وظيفة استرجاع الباسورد (تواصل مباشر واتساب)
-    forgotBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const whatsappNumber = "201000000000"; // استبدل هذا برقمك الحقيقي يبدأ بـ 20
-        const message = encodeURIComponent("يا دكتور فادي، أحتاج مساعدة في استعادة كلمة المرور الخاصة بي على المنصة.");
-        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-    });
+    // وظيفة إنشاء حساب جديد
+    document.getElementById('registerBtn').onclick = async () => {
+        const name = document.getElementById('regName').value;
+        const phone = document.getElementById('regPhone').value;
+        const parent = document.getElementById('regParent').value;
+        const pass = document.getElementById('regPass').value;
 
-    // 2. وظيفة تسجيل البيانات في Supabase
-    regForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // منع الريفرش
+        if(!name || !phone || !pass) return alert("من فضلك أكمل البيانات الأساسية");
 
-        submitBtn.innerText = "جاري الحفظ...";
-        submitBtn.disabled = true;
+        const { error } = await _supabase.from('students').insert([{
+            full_name: name, student_phone: phone, parent_phone: parent, password: pass, is_logged_in: false
+        }]);
 
-        const userData = {
-            full_name: document.getElementById('regName').value,
-            student_phone: document.getElementById('regPhone').value,
-            parent_phone: document.getElementById('regParentPhone').value,
-            password: document.getElementById('regPassword').value,
-            created_at: new Date()
-        };
-
-        try {
-            const { data, error } = await _supabase
-                .from('students') // تأكد أن اسم الجدول في سوبابيز هو students
-                .insert([userData]);
-
-            if (error) throw error;
-
-            alert("تم تسجيلك بنجاح يا بطل!.");
-            regForm.reset();
-
-        } catch (err) {
-            console.error('Registration Error:', err.message);
-            alert("حدث خطأ أثناء التسجيل: " + err.message);
-        } finally {
-            submitBtn.innerText = "سجل الآن";
-            submitBtn.disabled = false;
+        if (error) alert("خطأ: " + error.message);
+        else {
+            alert("تم إنشاء حسابك بنجاح يا بطل! سجل دخولك الآن.");
+            toggleView('login');
         }
-    });
+    };
+
+    // وظيفة تسجيل الدخول + منع تعدد الأجهزة
+    document.getElementById('loginBtn').onclick = async () => {
+        const phone = document.getElementById('loginPhone').value;
+        const pass = document.getElementById('loginPass').value;
+
+        // البحث عن الطالب
+        const { data, error } = await _supabase
+            .from('students')
+            .select('*')
+            .eq('student_phone', phone)
+            .eq('password', pass)
+            .single();
+
+        if (error || !data) return alert("بيانات الدخول غير صحيحة");
+
+        // التحقق من الجلسة (هل الطالب مسجل دخول من جهاز آخر؟)
+        if (data.is_logged_in) {
+            return alert("عذراً، هذا الحساب مفتوح بالفعل على جهاز آخر. يرجى تسجيل الخروج من الجهاز الآخر أولاً.");
+        }
+
+        // تحديث حالة الطالب إلى "مسجل دخول"
+        const { error: updateError } = await _supabase
+            .from('students')
+            .update({ is_logged_in: true })
+            .eq('student_phone', phone);
+
+        if (!updateError) {
+            alert(`مرحباً بك يا ${data.full_name}! تم تسجيل الدخول بنجاح.`);
+            // هنا يمكنك توجيه الطالب لصفحة المحاضرات
+            // window.location.href = 'lessons.html'; 
+        }
+    };
+
+    // نسيت كلمة المرور
+    document.getElementById('forgotBtn').onclick = (e) => {
+        e.preventDefault();
+        window.open('https://wa.me/201000000000?text=' + encodeURIComponent('أحتاج مساعدة في استعادة كلمة المرور'), '_blank');
+    };
 </script>
 
 </body>
