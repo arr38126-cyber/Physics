@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr: Fady | Physics Platform</title>
+    <title>Dr Fady | Physics Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,53 +18,65 @@
 
     <div id="authSection" class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-[#1C2331] rounded-[3rem] shadow-2xl border border-[#F57C00]/20 p-10 text-center relative overflow-hidden">
-            <div class="relative z-10 mb-8 text-center">
+            
+            <div class="relative z-10 mb-8">
                 <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 border-2 border-[#F57C00]/40 shadow-xl transform -rotate-3">
                     <img src="https://i.ibb.co/jkMXWC1v/logo.png" alt="Logo" class="w-full h-full object-contain">
                 </div>
-                <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase">Dr Fady</h1>
+                <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase">Dr: Fady</h1>
                 <div class="h-1 w-16 bg-[#F57C00] mx-auto mt-2 rounded-full opacity-80"></div>
             </div>
 
             <div id="loginForm" class="space-y-6">
-                <p class="text-[#F57C00] text-lg font-bold italic leading-relaxed">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
+                <p class="text-[#F57C00] text-lg font-bold italic leading-relaxed px-2">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
                 <div class="space-y-4">
                     <input type="tel" id="userPhone" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
                     <input type="password" id="userPass" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
                 </div>
                 <button onclick="mockLogin()" class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl active:scale-95 transition-all text-lg">دخول للمنصة</button>
-                <p class="text-white/40 text-xs mt-4">ليس لديك حساب؟ <span onclick="showRegister()" class="text-[#F57C00] cursor-pointer underline font-bold">سجل الآن</span></p>
+                <div class="pt-4 space-y-2">
+                    <p onclick="showSection('forgotForm')" class="text-[#F57C00]/60 text-xs cursor-pointer hover:underline">نسيت كلمة السر؟</p>
+                    <p class="text-white/40 text-xs">ليس لديك حساب؟ <span onclick="showSection('registerForm')" class="text-[#F57C00] cursor-pointer underline font-bold">سجل الآن</span></p>
+                </div>
             </div>
 
             <div id="registerForm" class="hidden space-y-4">
-                <h2 class="text-[#F57C00] text-xl font-bold mb-4 text-center">طالب جديد</h2>
+                <h2 class="text-[#F57C00] text-xl font-bold mb-4">طالب جديد</h2>
                 <input type="text" placeholder="الاسم الثلاثي للطالب" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
                 <input type="tel" placeholder="رقم هاتفك (واتساب)" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
                 <input type="tel" placeholder="رقم هاتف ولي الأمر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
                 <input type="password" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
                 <button onclick="mockLogin()" class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-xl shadow-lg active:scale-95 transition-all">تأكيد البيانات</button>
-                <p onclick="showLogin()" class="text-white/40 text-xs cursor-pointer text-center">العودة للدخول</p>
+                <p onclick="showSection('loginForm')" class="text-white/40 text-xs cursor-pointer">العودة للدخول</p>
+            </div>
+
+            <div id="forgotForm" class="hidden space-y-6">
+                <h2 class="text-[#F57C00] text-xl font-bold mb-2">استعادة الحساب</h2>
+                <p class="text-white/60 text-xs">أدخل رقم هاتفك وسيتم توجيهك للدعم الفني عبر واتساب لاستلام كلمة السر</p>
+                <input type="tel" id="forgotPhoneInput" placeholder="رقم هاتفك المسجل" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
+                <button onclick="sendResetWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-green-700 transition-all">طلب كلمة السر عبر واتساب</button>
+                <p onclick="showSection('loginForm')" class="text-[#F57C00] text-xs cursor-pointer underline">رجوع للخلف</p>
             </div>
         </div>
     </div>
 
     <div id="dashboardSection" class="hidden min-h-screen pb-20">
         <nav class="bg-[#1C2331] p-6 shadow-2xl border-b border-[#F57C00]/30 flex justify-between items-center px-8">
-            <span class="text-white font-black text-xl english-font italic uppercase">Dr Fady</span>
+            <span class="text-white font-black text-xl english-font italic tracking-tighter">Dr Fady <span class="text-[#F57C00]">Physics</span></span>
             <button onclick="location.reload()" class="bg-[#F57C00]/10 text-[#F57C00] border border-[#F57C00]/50 px-4 py-1 rounded-full text-xs font-bold uppercase">خروج</button>
         </nav>
 
-        <div class="max-w-5xl mx-auto mt-10 px-6">
+        <div class="max-w-5xl mx-auto mt-10 px-6 text-right">
             <div class="bg-[#2d2013] border-r-[12px] border-[#F57C00] p-10 rounded-[2.5rem] shadow-2xl">
-                <p class="text-[#FFF8E1] text-2xl md:text-3xl italic font-bold leading-relaxed text-right">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
+                <p class="text-[#FFF8E1] text-2xl md:text-3xl italic font-bold leading-relaxed">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-6 text-right">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-6">
             <div class="bg-[#1C2331] rounded-[2.5rem] overflow-hidden border border-[#F57C00]/10 shadow-xl group">
-                <div class="aspect-video bg-black flex items-center justify-center relative"><span class="text-[#F57C00] text-5xl">▶</span></div>
-                <div class="p-6">
-                    <h3 class="text-white font-bold text-lg mb-4">المحاضرة 1: الفيزياء والقياس</h3>
+                <div class="aspect-video bg-black flex items-center justify-center relative"><span class="text-[#F57C00] text-5xl group-hover:scale-125 transition-transform">▶</span></div>
+                <div class="p-6 text-right">
+                    <h3 class="text-white font-bold text-lg mb-4">المحاضرة 1: القياس الفيزيائي</h3>
                     <div class="flex gap-2">
                         <button class="flex-1 bg-[#F57C00] text-[#1C2331] font-bold py-2 rounded-xl text-sm">شاهد الآن</button>
                         <button class="flex-1 border border-[#F57C00] text-[#F57C00] font-bold py-2 rounded-xl text-sm">الملزمة</button>
@@ -72,22 +84,37 @@
                 </div>
             </div>
             <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
-                <div class="absolute inset-0 glass-card z-20 flex flex-col items-center justify-center backdrop-blur-md">
-                    <div class="bg-[#F57C00]/20 p-4 rounded-full mb-2 text-3xl">🔒</div>
-                    <p class="text-[#F57C00] font-black text-sm">محتوى مقفل</p>
+                <div class="absolute inset-0 glass-card z-20 flex flex-col items-center justify-center text-center p-6 backdrop-blur-md">
+                    <div class="bg-[#F57C00]/20 p-4 rounded-full mb-3 text-3xl">🔒</div>
+                    <p class="text-[#F57C00] font-black text-sm">المحتوى مقفل</p>
                 </div>
-                <div class="bg-[#1C2331] p-6 opacity-20"><h3 class="text-white font-bold text-lg mb-4">المحاضرة 2: الحركة</h3></div>
+                <div class="bg-[#1C2331] p-6 opacity-20 text-right"><h3 class="text-white font-bold text-lg mb-4">المحاضرة 2: الحركة</h3></div>
             </div>
         </div>
     </div>
 
     <script>
-        // *** عدل الرقم هنا (السطر 100) ***
+        // تعديل الرقم في السطر 98
         const myWhatsApp = "201000000000"; 
 
-        function showRegister() { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden'); }
-        function showLogin() { document.getElementById('registerForm').classList.add('hidden'); document.getElementById('loginForm').classList.remove('hidden'); }
-        function mockLogin() { document.getElementById('authSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); window.scrollTo(0,0); }
+        function showSection(id) {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('forgotForm').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function sendResetWhatsApp() {
+            const phone = document.getElementById('forgotPhoneInput').value;
+            if(!phone) { alert("يرجى إدخال رقم الهاتف أولاً"); return; }
+            window.open(`https://wa.me/${myWhatsApp}?text=أهلاً دكتور فادي، نسيت كلمة سري ورقمي هو: ${phone}`);
+        }
+
+        function mockLogin() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
     </script>
 </body>
 </html>
