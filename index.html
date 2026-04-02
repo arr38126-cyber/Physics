@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr: Fady Adel | Physics Platform</title>
     
-    <link rel="icon" href="https://i.ibb.co/Xz9kH2X/fady-logo.png" type="image/png">
+    <link rel="icon" href="https://i.ibb.co/nMB0QD7k/fady-logo.png" type="image/png">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         :root {
-            --dark-navy: #1a252f; /* الكحلي الغامق للزرار والعناوين */
-            --bright-blue: #3498db; /* الأزرق للجملة */
-            --bg-color: #f4f7f6; /* خلفية الصفحة */
+            --dark-navy: #1a252f;
+            --bright-blue: #3498db;
+            --bg: #f4f7f6;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -30,45 +30,34 @@
             background-color: #ffffff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 90%;
             max-width: 400px;
             text-align: center;
-            border-top: 5px solid var(--dark-navy);
+            border-top: 6px solid var(--dark-navy);
         }
 
-        h2 { 
-            color: var(--dark-navy); 
-            margin-bottom: 5px; 
-            font-size: 28px;
-            letter-spacing: 1px;
-        }
+        h2 { color: var(--dark-navy); margin-bottom: 5px; font-size: 26px; }
 
         .slogan {
             color: var(--bright-blue);
             font-style: italic;
             font-size: 1.1rem;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: bold;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         input {
             width: 100%;
             padding: 14px;
             margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             box-sizing: border-box;
             background-color: #fff;
             font-size: 15px;
             text-align: right;
-        }
-
-        input:focus {
-            border-color: var(--bright-blue);
-            outline: none;
-            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
         }
 
         button {
@@ -77,40 +66,19 @@
             background-color: var(--dark-navy);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
-            margin-top: 20px;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #2c3e50;
-        }
-
-        .toggle-link {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .toggle-link span {
-            color: var(--bright-blue);
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        .forgot-link {
-            color: #e74c3c;
-            text-decoration: none;
-            font-size: 13px;
-            display: block;
             margin-top: 15px;
-            font-weight: 600;
+            transition: 0.3s;
         }
 
+        button:hover { background-color: #2c3e50; }
+
+        .toggle-link { margin-top: 25px; font-size: 14px; color: #7f8c8d; }
+        .toggle-link span { color: var(--bright-blue); cursor: pointer; font-weight: bold; text-decoration: underline; }
+        .forgot-link { color: #e74c3c; text-decoration: none; font-size: 13px; display: block; margin-top: 15px; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
@@ -134,11 +102,12 @@
         <input type="tel" id="regParent" placeholder="رقم موبايل ولي الأمر">
         <input type="password" id="regPass" placeholder="اختر كلمة مرور">
         <button id="registerBtn">تأكيد الاشتراك</button>
-        <div class="toggle-link">لديك حساب؟ <span onclick="toggleView('login')">العودة لتسجيل الدخول</span></div>
+        <div class="toggle-link">لديك حساب؟ <span onclick="toggleView('login')">العودة للدخول</span></div>
     </div>
 </div>
 
 <script>
+    // الإعدادات المحدثة بالمفتاح الجديد
     const SB_URL = 'https://atjzfdlayhfbrdfplkaz.supabase.co';
     const SB_KEY = 'sb_publishable_qgPInys2_HADODQ8rRwORg_lYp6Baf8';
     const _supabase = supabase.createClient(SB_URL, SB_KEY);
@@ -148,10 +117,10 @@
         document.getElementById('registerSection').classList.toggle('hidden', view === 'login');
     }
 
-    // 1. إنشاء حساب جديد
+    // 1. إنشاء حساب
     document.getElementById('registerBtn').onclick = async () => {
         const btn = document.getElementById('registerBtn');
-        const userData = {
+        const data = {
             full_name: document.getElementById('regName').value,
             student_phone: document.getElementById('regPhone').value,
             parent_phone: document.getElementById('regParent').value,
@@ -159,32 +128,30 @@
             is_logged_in: false
         };
 
-        if(!userData.full_name || !userData.student_phone || !userData.password) return alert("برجاء إدخال كافة البيانات");
+        if(!data.full_name || !data.student_phone || !data.password) return alert("أكمل البيانات أولاً");
 
         btn.innerText = "جاري الحفظ...";
         btn.disabled = true;
 
-        const { error } = await _supabase.from('students').insert([userData]);
+        const { error } = await _supabase.from('students').insert([data]);
 
         if (error) {
             alert("خطأ: " + error.message);
         } else {
-            alert("تم اشتراكك بنجاح! سجل دخولك الآن للبدء.");
+            alert("تم التسجيل بنجاح يا بطل! سجل دخولك الآن.");
             toggleView('login');
         }
         btn.innerText = "تأكيد الاشتراك";
         btn.disabled = false;
     };
 
-    // 2. تسجيل الدخول + حماية تعدد الأجهزة
+    // 2. تسجيل الدخول ومنع تعدد الأجهزة
     document.getElementById('loginBtn').onclick = async () => {
         const phone = document.getElementById('loginPhone').value;
         const pass = document.getElementById('loginPass').value;
         const btn = document.getElementById('loginBtn');
 
-        if(!phone || !pass) return alert("أدخل رقم الموبايل وكلمة المرور");
-
-        btn.innerText = "جاري الدخول...";
+        btn.innerText = "جاري التحقق...";
         btn.disabled = true;
 
         const { data, error } = await _supabase
@@ -195,14 +162,13 @@
             .single();
 
         if (error || !data) {
-            alert("البيانات خاطئة، تأكد من الرقم والباسورد");
+            alert("خطأ في الرقم أو الباسورد");
         } else {
             if (data.is_logged_in) {
-                alert("الحساب مفتوح من جهاز آخر، يجب تسجيل الخروج من الجهاز الأول.");
+                alert("الحساب مفتوح على جهاز آخر!");
             } else {
                 await _supabase.from('students').update({ is_logged_in: true }).eq('student_phone', phone);
-                alert("أهلاً بك يا بطل " + data.full_name + "! جاهز لصعود القمة؟");
-                // window.location.href = 'lessons.html'; 
+                alert("مرحباً بك يا " + data.full_name);
             }
         }
         btn.innerText = "تسجيل الدخول";
@@ -211,9 +177,8 @@
 
     document.getElementById('forgotBtn').onclick = (e) => {
         e.preventDefault();
-        window.open('https://wa.me/201000000000?text=' + encodeURIComponent('يا دكتور فادي، نسيت كلمة المرور الخاصة بي'), '_blank');
+        window.open('https://wa.me/201000000000?text=' + encodeURIComponent('يا دكتور فادي، نسيت كلمة المرور'), '_blank');
     };
 </script>
 </body>
 </html>
-
