@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr: Fady | Physics Platform</title>
+    <title>Dr: Fady Adel | Physics Platform</title>
     
     <link rel="icon" href="https://i.postimg.cc/85M6Xm8y/fady-logo.png" type="image/png">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
+        /* إرجاع الألوان والتنسيق القديم بدقة */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #ffffff;
@@ -22,85 +23,74 @@
 
         .card {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
             border: 1px solid #e0e0e0;
         }
 
-        h2 { color: #2c3e50; margin-bottom: 8px; }
+        /* تعديل الاسم لـ Dr: Fady Adel كما طلبت */
+        h2 { color: #2c3e50; margin-bottom: 5px; font-size: 26px; }
 
         .slogan {
             color: #3498db;
             font-style: italic;
-            font-size: 1rem;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
             font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
+            padding: 15px;
+            margin: 10px 0;
             border: 1px solid #dcdde1;
             border-radius: 8px;
             box-sizing: border-box;
-            background-color: #fafafa;
+            background-color: #ffffff;
+            font-size: 14px;
             text-align: right;
         }
 
+        /* اللون الكحلي الغامق للزرار */
         button {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background-color: #2c3e50; 
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
+            transition: 0.3s;
         }
 
         button:hover { background-color: #1a252f; }
+
+        .toggle-link { margin-top: 20px; font-size: 14px; color: #7f8c8d; }
+        .toggle-link span { color: #3498db; cursor: pointer; font-weight: bold; text-decoration: underline; }
+
+        .forgot-link { color: #e74c3c; text-decoration: none; font-size: 13px; display: block; margin-top: 15px; font-weight: bold; }
         
-        .toggle-link {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-
-        .toggle-link span {
-            color: #3498db;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .forgot-link {
-            color: #e74c3c;
-            text-decoration: none;
-            font-size: 12px;
-            display: block;
-            margin-top: 10px;
-        }
-
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h2>منصة د. فادي للفيزياء</h2>
+    <h2>Dr: Fady Adel</h2>
     <div class="slogan">"وَمَن لا يُحِبّ صُعُودَ الجِبَالِ يَعِش أَبَدَ الدَّهرِ بَينَ الحُفَرِ"</div>
 
     <div id="loginSection">
         <input type="tel" id="loginPhone" placeholder="رقم الموبايل">
         <input type="password" id="loginPass" placeholder="كلمة المرور">
         <button id="loginBtn">تسجيل الدخول</button>
-        <a href="#" class="forgot-link" id="forgotBtn">نسيت كلمة المرور؟</a>
+        <a href="#" id="forgotBtn" class="forgot-link">نسيت كلمة المرور؟ تواصل معنا</a>
         <div class="toggle-link">ليس لديك حساب؟ <span onclick="toggleView('register')">إنشاء حساب جديد</span></div>
     </div>
 
@@ -119,38 +109,46 @@
     const SB_KEY = 'sb_publishable_qgPInys2_HADODQ8rRwORg_lYp6Baf8';
     const _supabase = supabase.createClient(SB_URL, SB_KEY);
 
-    // تبديل الواجهات
     function toggleView(view) {
         document.getElementById('loginSection').classList.toggle('hidden', view === 'register');
         document.getElementById('registerSection').classList.toggle('hidden', view === 'login');
     }
 
-    // وظيفة إنشاء حساب جديد
+    // 1. إنشاء حساب جديد
     document.getElementById('registerBtn').onclick = async () => {
-        const name = document.getElementById('regName').value;
-        const phone = document.getElementById('regPhone').value;
-        const parent = document.getElementById('regParent').value;
-        const pass = document.getElementById('regPass').value;
+        const btn = document.getElementById('registerBtn');
+        btn.innerText = "جاري الحفظ...";
+        btn.disabled = true;
 
-        if(!name || !phone || !pass) return alert("من فضلك أكمل البيانات الأساسية");
+        const userData = {
+            full_name: document.getElementById('regName').value,
+            student_phone: document.getElementById('regPhone').value,
+            parent_phone: document.getElementById('regParent').value,
+            password: document.getElementById('regPass').value,
+            is_logged_in: false
+        };
 
-        const { error } = await _supabase.from('students').insert([{
-            full_name: name, student_phone: phone, parent_phone: parent, password: pass, is_logged_in: false
-        }]);
+        const { error } = await _supabase.from('students').insert([userData]);
 
-        if (error) alert("خطأ: " + error.message);
-        else {
-            alert("تم إنشاء حسابك بنجاح يا بطل! سجل دخولك الآن.");
+        if (error) {
+            alert("خطأ: " + error.message);
+        } else {
+            alert("تم إنشاء حسابك بنجاح يا بطل! يمكنك الآن تسجيل الدخول.");
             toggleView('login');
         }
+        btn.innerText = "إنشاء الحساب";
+        btn.disabled = false;
     };
 
-    // وظيفة تسجيل الدخول + منع تعدد الأجهزة
+    // 2. تسجيل الدخول + منع تعدد الأجهزة
     document.getElementById('loginBtn').onclick = async () => {
         const phone = document.getElementById('loginPhone').value;
         const pass = document.getElementById('loginPass').value;
+        const btn = document.getElementById('loginBtn');
 
-        // البحث عن الطالب
+        btn.innerText = "جاري التحقق...";
+        btn.disabled = true;
+
         const { data, error } = await _supabase
             .from('students')
             .select('*')
@@ -158,32 +156,26 @@
             .eq('password', pass)
             .single();
 
-        if (error || !data) return alert("بيانات الدخول غير صحيحة");
-
-        // التحقق من الجلسة (هل الطالب مسجل دخول من جهاز آخر؟)
-        if (data.is_logged_in) {
-            return alert("عذراً، هذا الحساب مفتوح بالفعل على جهاز آخر. يرجى تسجيل الخروج من الجهاز الآخر أولاً.");
+        if (error || !data) {
+            alert("بيانات الدخول غير صحيحة");
+        } else {
+            if (data.is_logged_in) {
+                alert("الحساب مفتوح بالفعل على جهاز آخر! سجل الخروج أولاً.");
+            } else {
+                // تحديث حالة الجلسة لمنع دخول شخص آخر
+                await _supabase.from('students').update({ is_logged_in: true }).eq('student_phone', phone);
+                alert("أهلاً بك يا " + data.full_name + "! تم تسجيل الدخول بنجاح.");
+                // window.location.href = 'dashboard.html'; // وجه الطالب هنا لصفحة المحاضرات
+            }
         }
-
-        // تحديث حالة الطالب إلى "مسجل دخول"
-        const { error: updateError } = await _supabase
-            .from('students')
-            .update({ is_logged_in: true })
-            .eq('student_phone', phone);
-
-        if (!updateError) {
-            alert(`مرحباً بك يا ${data.full_name}! تم تسجيل الدخول بنجاح.`);
-            // هنا يمكنك توجيه الطالب لصفحة المحاضرات
-            // window.location.href = 'lessons.html'; 
-        }
+        btn.innerText = "تسجيل الدخول";
+        btn.disabled = false;
     };
 
-    // نسيت كلمة المرور
     document.getElementById('forgotBtn').onclick = (e) => {
         e.preventDefault();
         window.open('https://wa.me/201000000000?text=' + encodeURIComponent('أحتاج مساعدة في استعادة كلمة المرور'), '_blank');
     };
 </script>
-
 </body>
 </html>
