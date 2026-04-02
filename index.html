@@ -3,147 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr Fady | Physics Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dr: Fady | Physics Platform</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-        :root { --brand-dark: #1C2331; --brand-orange: #F57C00; --brand-beige: #FFF8E1; }
-        body { background-color: var(--brand-beige); font-family: 'Cairo', sans-serif; margin: 0; }
-        .english-font { font-family: 'Playfair Display', serif; }
-        .hidden { display: none !important; }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f8f9fa;
+            --error: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border-top: 6px solid var(--primary);
+        }
+
+        h2 { color: var(--primary); margin-bottom: 10px; font-size: 1.6rem; }
+
+        .slogan {
+            color: var(--accent);
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            background: #f0f7fd;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 5px rgba(52, 152, 219, 0.2); }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: var(--accent); transform: translateY(-2px); }
+        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+
+        .forgot-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--error);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-link { margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+        .footer-link a { color: var(--accent); text-decoration: none; font-weight: bold; }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
 
-    <div id="authSection" class="min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full bg-[#1C2331] rounded-[3rem] shadow-2xl border border-[#F57C00]/20 p-10 text-center relative overflow-hidden">
-            <div class="relative z-10 mb-8 text-center">
-                <div class="w-24 h-24 mx-auto bg-white rounded-3xl p-2 border-2 border-[#F57C00]/40 shadow-xl transform -rotate-3">
-                    <img src="https://i.ibb.co/jkMXWC1v/logo.png" alt="Logo" class="w-full h-full object-contain">
-                </div>
-                <h1 class="text-white text-3xl font-black mt-6 english-font italic uppercase">Dr: Fady</h1>
-                <div class="h-1 w-16 bg-[#F57C00] mx-auto mt-2 rounded-full opacity-80"></div>
-            </div>
-
-            <div id="loginForm" class="space-y-6">
-                <p class="text-[#F57C00] text-lg font-bold italic leading-relaxed">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
-                <input type="tel" id="userPhone" placeholder="رقم الهاتف" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
-                <input type="password" id="userPass" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
-                <button onclick="handleLogin()" class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-2xl shadow-2xl active:scale-95 transition-all text-lg">دخول للمنصة</button>
-                <div class="pt-4 space-y-2">
-                    <p onclick="showSection('forgotForm')" class="text-[#F57C00]/60 text-xs cursor-pointer hover:underline">نسيت كلمة السر؟</p>
-                    <p class="text-white/40 text-xs">ليس لديك حساب؟ <span onclick="showSection('registerForm')" class="text-[#F57C00] cursor-pointer underline font-bold">سجل الآن</span></p>
-                </div>
-            </div>
-
-            <div id="registerForm" class="hidden space-y-4">
-                <h2 class="text-[#F57C00] text-xl font-bold mb-4">طالب جديد</h2>
-                <input type="text" id="regName" placeholder="الاسم الثلاثي للطالب" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
-                <input type="tel" id="regPhone" placeholder="رقم هاتفك (واتساب)" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
-                <input type="tel" id="regParent" placeholder="رقم هاتف ولي الأمر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
-                <input type="password" id="regPass" placeholder="كلمة السر" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-xl py-3 px-4 text-white text-center outline-none">
-                <button onclick="handleRegister()" class="w-full bg-[#F57C00] text-[#1C2331] font-black py-4 rounded-xl shadow-lg active:scale-95 transition-all">تأكيد البيانات</button>
-                <p onclick="showSection('loginForm')" class="text-white/40 text-xs cursor-pointer">العودة للدخول</p>
-            </div>
-
-            <div id="forgotForm" class="hidden space-y-6">
-                <h2 class="text-[#F57C00] text-xl font-bold mb-2 text-center">استعادة الحساب</h2>
-                <p class="text-white/60 text-xs text-center px-4">أدخل رقمك وسيتم توجيهك للواتساب لاستلام كلمة السر</p>
-                <input type="tel" id="forgotPhoneInput" placeholder="رقم هاتفك المسجل" class="w-full bg-[#0d1117] border border-[#F57C00]/30 rounded-2xl py-4 px-6 text-white text-center outline-none">
-                <button onclick="sendResetWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-green-700 transition-all">طلب كلمة السر عبر واتساب</button>
-                <p onclick="showSection('loginForm')" class="text-[#F57C00] text-xs cursor-pointer underline text-center">رجوع للخلف</p>
-            </div>
-        </div>
+<div class="card">
+    <h2>منصة د. فادي للفيزياء</h2>
+    
+    <div class="slogan">
+        "وَمَن لا يُحِبّ صُعُودَ الجِبَالِ <br> يَعِش أَبَدَ الدَّهرِ بَينَ الحُفَرِ"
     </div>
 
-    <div id="dashboardSection" class="hidden min-h-screen pb-20">
-        <nav class="bg-[#1C2331] p-6 shadow-2xl border-b border-[#F57C00]/30 flex justify-between items-center px-8 text-right">
-            <span class="text-white font-black text-xl english-font italic tracking-tighter">Dr Fady <span class="text-[#F57C00]">Physics</span></span>
-            <button onclick="location.reload()" class="bg-[#F57C00]/10 text-[#F57C00] border border-[#F57C00]/50 px-4 py-1 rounded-full text-xs font-bold uppercase">خروج</button>
-        </nav>
+    <form id="registrationForm">
+        <input type="text" id="regName" placeholder="الاسم الثلاثي للطالب" required>
+        <input type="tel" id="regPhone" placeholder="رقم موبايلك (WhatsApp)" required>
+        <input type="tel" id="regParentPhone" placeholder="رقم موبايل ولي الأمر" required>
+        <input type="password" id="regPassword" placeholder="كلمة المرور الجديدة" required>
+        
+        <button type="submit" id="submitBtn">سجل الآن</button>
+    </form>
+    
+    <a href="#" id="forgotBtn" class="forgot-link">نسيت كلمة المرور؟ تواصل معنا</a>
 
-        <div class="max-w-5xl mx-auto mt-10 px-6 text-right">
-            <div class="bg-[#2d2013] border-r-[12px] border-[#F57C00] p-10 rounded-[2.5rem] shadow-2xl">
-                <p class="text-[#FFF8E1] text-2xl md:text-3xl italic font-bold leading-relaxed">"وَمَن لايَهوَى صُعودَ الجِبالِ يَعِش أَبَدَ الدَهرِ بَينَ الحُفَرِ"</p>
-            </div>
-        </div>
+    <p class="footer-link">لديك حساب بالفعل؟ <a href="#">تسجيل دخول</a></p>
+</div>
 
-        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-6">
-            <div class="bg-[#1C2331] rounded-[2.5rem] overflow-hidden border border-[#F57C00]/10 shadow-xl group">
-                <div class="aspect-video bg-black flex items-center justify-center relative"><span class="text-[#F57C00] text-5xl">▶</span></div>
-                <div class="p-6 text-right">
-                    <h3 class="text-white font-bold text-lg mb-4">المحاضرة 1: القياس الفيزيائي</h3>
-                    <div class="flex gap-2 text-center">
-                        <button class="flex-1 bg-[#F57C00] text-[#1C2331] font-bold py-2 rounded-xl text-sm">شاهد الآن</button>
-                        <button class="flex-1 border border-[#F57C00] text-[#F57C00] font-bold py-2 rounded-xl text-sm">الملزمة</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
-                <div class="absolute inset-0 glass-card z-20 flex flex-col items-center justify-center text-center p-6 backdrop-blur-md">
-                    <div class="bg-[#F57C00]/20 p-4 rounded-full mb-3 text-3xl">🔒</div>
-                    <p class="text-[#F57C00] font-black text-sm">المحتوى مقفل</p>
-                </div>
-                <div class="bg-[#1C2331] p-6 opacity-20 text-right"><h3 class="text-white font-bold text-lg mb-4">المحاضرة 2: الحركة</h3></div>
-            </div>
-        </div>
-    </div>
+<script>
+    // --- إعدادات الربط النهائية لمشروعك ---
+    const SB_URL = 'https://atjzfdlayhfbrdfplkaz.supabase.co';
+    const SB_KEY = 'sb_publishable_qgPInys2_HADODQ8rRwORg_lYp6Baf8';
 
-    <script>
-        // إعدادات الربط النهائية
-        const _URL = 'https://atjzfdlayhfbrdfplkaz.supabase.co';
-        const _KEY = 'sb_publishable_qgPInys2_HADODQ8rRwORg_lYp6Baf8';
-        const supabase = supabase.createClient(_URL, _KEY);
-        const myWhatsApp = "201000000000"; // عدل رقمك هنا
+    const _supabase = supabase.createClient(SB_URL, SB_KEY);
 
-        function showSection(id) {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('forgotForm').classList.add('hidden');
-            document.getElementById(id).classList.remove('hidden');
+    const regForm = document.getElementById('registrationForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const forgotBtn = document.getElementById('forgotBtn');
+
+    // 1. وظيفة استرجاع الباسورد (تواصل مباشر واتساب)
+    forgotBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const whatsappNumber = "201000000000"; // استبدل هذا برقمك الحقيقي يبدأ بـ 20
+        const message = encodeURIComponent("يا دكتور فادي، أحتاج مساعدة في استعادة كلمة المرور الخاصة بي على المنصة.");
+        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    });
+
+    // 2. وظيفة تسجيل البيانات في Supabase
+    regForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // منع الريفرش
+
+        submitBtn.innerText = "جاري الحفظ...";
+        submitBtn.disabled = true;
+
+        const userData = {
+            full_name: document.getElementById('regName').value,
+            student_phone: document.getElementById('regPhone').value,
+            parent_phone: document.getElementById('regParentPhone').value,
+            password: document.getElementById('regPassword').value,
+            created_at: new Date()
+        };
+
+        try {
+            const { data, error } = await _supabase
+                .from('students') // تأكد أن اسم الجدول في سوبابيز هو students
+                .insert([userData]);
+
+            if (error) throw error;
+
+            alert("تم تسجيلك بنجاح يا بطل!.");
+            regForm.reset();
+
+        } catch (err) {
+            console.error('Registration Error:', err.message);
+            alert("حدث خطأ أثناء التسجيل: " + err.message);
+        } finally {
+            submitBtn.innerText = "سجل الآن";
+            submitBtn.disabled = false;
         }
+    });
+</script>
 
-        // تسجيل طالب جديد
-        async function handleRegister() {
-            const name = document.getElementById('regName').value;
-            const phone = document.getElementById('regPhone').value;
-            const parent = document.getElementById('regParent').value;
-            const pass = document.getElementById('regPass').value;
-
-            if(!name || !phone || !pass) return alert("من فضلك أكمل بياناتك");
-
-            const { error } = await supabase.from('students').insert([{
-                full_name: name,
-                student_phone: phone,
-                parent_phone: parent,
-                password: pass
-            }]);
-
-            if (error) alert("خطأ: " + error.message);
-            else { alert("تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول"); showSection('loginForm'); }
-        }
-
-        // تسجيل الدخول
-        async function handleLogin() {
-            const phone = document.getElementById('userPhone').value;
-            const pass = document.getElementById('userPass').value;
-
-            const { data, error } = await supabase.from('students')
-                .select('*').eq('student_phone', phone).eq('password', pass).single();
-
-            if (data) {
-                document.getElementById('authSection').classList.add('hidden');
-                document.getElementById('dashboardSection').classList.remove('hidden');
-                window.scrollTo(0,0);
-            } else { alert("رقم الهاتف أو كلمة السر غير صحيحة"); }
-        }
-
-        function sendResetWhatsApp() {
-            const phone = document.getElementById('forgotPhoneInput').value;
-            window.open(`https://wa.me/${myWhatsApp}?text=أهلاً دكتور فادي، نسيت كلمة سري ورقمي هو: ${phone}`);
-        }
-    </script>
 </body>
 </html>
